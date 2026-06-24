@@ -1,0 +1,71 @@
+{% include 'header.html' %}
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{appType}} | Car Project</h1>
+            <h3>
+                Demo:
+                <a href="{{url_for('createcar')}}">Create</a> /
+                <a href="{{url_for('readcar')}}">Read</a> /
+                <a href="{{url_for('updatecar')}}">Update</a> /
+                <a href="{{url_for('deletecar')}}">Delete</a> /
+                <a href="{{url_for('searchcar')}}">Search</a>
+            </h3> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Update Car Data</h4>
+            <form method="GET">
+                <div class="form-group">
+                    <label>Masukkan ID Mobil</label>
+                    <input type="number" name="id" class="form-control" placeholder="Input ID">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-info">Load Data</button>
+            </form>
+
+            <hr>
+
+            {% if car %}
+            <form method="POST">
+                <input type="hidden" name="id" value="{{ car.id }}">
+
+                <div class="form-group">
+                    <label>Nama Mobil</label>
+                    <input type="text" name="name" value="{{ car.carname }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Brand</label>
+                    <input type="text" name="brand" value="{{ car.carbrand }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" name="model" value="{{ car.carmodel }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Harga</label>
+                    <input type="text" name="price" value="{{ car.carprice }}" class="form-control">
+                </div>
+
+                <br>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+            {% endif %}
+
+            {% if request.args.get('id') and not car %}
+                <p><b>Data tidak ditemukan!</b></p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+</body>
+{% include 'footer.html' %}
